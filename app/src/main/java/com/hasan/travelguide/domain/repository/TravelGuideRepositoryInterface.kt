@@ -11,5 +11,5 @@ interface TravelGuideRepositoryInterface {
 
     suspend fun getAllListItem(): Resource<List<AllTravelListItem>>
 
-    suspend fun getDealsFlightData():Resource<List<AllTravelListItem>>
+    suspend fun getCategoryList(category:String) : Resource<List<AllTravelListItem>>
 }

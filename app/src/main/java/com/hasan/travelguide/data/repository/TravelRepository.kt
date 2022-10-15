@@ -29,9 +29,9 @@ class TravelRepository @Inject constructor(
         }
     }
 
-    override suspend fun getDealsFlightData(): Resource<List<AllTravelListItem>> {
+    override suspend fun getCategoryList(category: String): Resource<List<AllTravelListItem>> {
         return try {
-            val response = travelAPI.getDealsFlightList()
+            val response = travelAPI.getCategoriesList(category)
             if (response.isSuccessful){
                 response.body()?.let {
                     return@let Resource.success(it)
@@ -45,7 +45,6 @@ class TravelRepository @Inject constructor(
 
         }
     }
-
 
 
 }

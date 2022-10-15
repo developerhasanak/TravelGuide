@@ -156,13 +156,15 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/homeViewPager2"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_140sdp"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_20ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/homeTabLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
