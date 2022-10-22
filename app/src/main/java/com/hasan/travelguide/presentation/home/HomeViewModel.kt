@@ -10,12 +10,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class HomeViewModel@Inject constructor(
     private val repository: TravelRepository
 ) :ViewModel()  {
-
 
     val allList = MutableLiveData<Resource<List<AllTravelListItem>>>()
     val flightsList = MutableLiveData<Resource<List<AllTravelListItem>>>()
@@ -28,7 +26,6 @@ class HomeViewModel@Inject constructor(
         getHotelsApiData()
         getTransportationApiData()
     }
-
 
     private fun getAllApiData(){
         allList.value = Resource.loading(null)
@@ -61,4 +58,5 @@ class HomeViewModel@Inject constructor(
            transpotationList.value = response
         }
     }
+
 }

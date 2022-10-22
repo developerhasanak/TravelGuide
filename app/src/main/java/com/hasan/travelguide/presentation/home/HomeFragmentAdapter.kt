@@ -30,4 +30,5 @@ class HomeFragmentAdapter (var imageList: List<Image>):RecyclerView.Adapter<Home
     override fun getItemCount(): Int {
         return imageList.size
     }
+
 }
