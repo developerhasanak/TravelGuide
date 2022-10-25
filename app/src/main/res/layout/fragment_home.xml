@@ -121,7 +121,7 @@
             app:tabIndicatorColor="#FF4760"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorAnimationMode="linear"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="#FF4760"
             app:tabTextAppearance="@style/home_tab_style"
             app:tabTextColor="#C2C5D6">

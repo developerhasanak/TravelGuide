@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.hasan.travelguide.R
 import com.hasan.travelguide.databinding.FragmentSearchBinding
 import com.hasan.travelguide.presentation.search.nearbyattractions.NearbyAttractionsRecyclerAdapter
 import com.hasan.travelguide.presentation.search.topdestinations.TopDestinationsRecyclerViewAdapter
+import com.hasan.travelguide.utils.Status
 
 /**
  * A simple [Fragment] subclass.
@@ -22,6 +25,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var topItemADApter:TopDestinationsRecyclerViewAdapter
     private lateinit var nearbyItemAdapter:NearbyAttractionsRecyclerAdapter
+    private  lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,24 +41,33 @@ class SearchFragment : Fragment() {
 
         //In the recycler view, the horizontal placement of the items is defined.
         binding.topDestinationsRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        val image = arrayListOf(
-            R.drawable.example4,
-            R.drawable.example5,   //bu kısım test için kaldırılacak
-            R.drawable.example6
-        )
-        //connects with recyclerview adapter
-        topItemADApter = TopDestinationsRecyclerViewAdapter(image)
-        binding.topDestinationsRecyclerView.adapter = topItemADApter
+        viewModel = ViewModelProvider(requireActivity())[SearchViewModel::class.java]
 
         binding.nearybyAttractionsRecyclerView.layoutManager = LinearLayoutManager(context)
-        val image2 = arrayListOf(
-            R.drawable.example8,
-            R.drawable.trips_item_example,   //bu kısım test için kaldırılacak
-            R.drawable.example2
-        )
-        //connects with recyclerview adapter
-        nearbyItemAdapter = NearbyAttractionsRecyclerAdapter(image2)
-        binding.nearybyAttractionsRecyclerView.adapter = nearbyItemAdapter
 
+        observeTopdestinations()
+    }
+
+    private fun observeTopdestinations(){
+        viewModel.topDectinations.observe(viewLifecycleOwner) { data ->
+            data?.let {
+                when (data.status) {
+                    Status.SUCCESS -> {
+                        val list = it.data
+                        topItemADApter = TopDestinationsRecyclerViewAdapter(list!!)
+                        binding.topDestinationsRecyclerView.adapter = topItemADApter
+                    }
+
+                    Status.LOADING -> {
+
+                    }
+
+                    Status.ERROR -> {
+
+                    }
+                }
+
+            }
+        }
     }
 }
